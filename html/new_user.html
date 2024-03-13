@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter ID Registration</title>
+    <link rel="stylesheet" type="text/css" href="/dbProject/css/register.css">
+    <script>
+        function generateVoterID() {
+            var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var numbers = '0123456789';
+            var voterID = 'V';
+            for (var i = 0; i < 9; i++) {
+                if (i < 2) {
+                    voterID += letters.charAt(Math.floor(Math.random() * letters.length));
+                } else {
+                    voterID += numbers.charAt(Math.floor(Math.random() * numbers.length));
+                }
+            }
+            document.getElementById('voterID1').innerText = voterID;
+            document.getElementById('voterID').value = voterID;
+            document.getElementById('generateButton').disabled = true; // Disable the button after generating voter ID
+        }
+
+        function checkPasswordStrength() {
+            var password = document.getElementById('password').value;
+            var strengthMeter = document.getElementById('password-strength');
+
+            // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number, and one special character
+            var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+            
+            if (strongRegex.test(password)) {
+                strengthMeter.innerHTML = 'Strong password';
+                strengthMeter.style.color = 'green';
+            } else {
+                strengthMeter.innerHTML = 'Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character';
+                strengthMeter.style.color = 'red';
+            }
+        }
+
+        function checkPasswordMatch() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var matchMessage = document.getElementById('password-match');
+
+            if (password === confirmPassword) {
+                matchMessage.innerHTML = 'Passwords match';
+                matchMessage.style.color = 'green';
+            } else {
+                matchMessage.innerHTML = 'Passwords do not match';
+                matchMessage.style.color = 'red';
+            }
+        }
+
+        function validateAge() {
+            var dob = new Date(document.getElementById('dob').value);
+            var now = new Date();
+            var age = now.getFullYear() - dob.getFullYear();
+
+            if (age < 18) {
+                alert("You must be at least 18 years old to register.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Voter ID Registration</h2>
+    <form method="post" action="/dbProject/php/register.php" onsubmit="return validateAge();">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+        
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+        
+        <label for="constituency">Constituency:</label>
+        <select id="constituency" name="constituency" required>
+        <option value="" disabled selected>Select Constituency</option>
+        <option value="BTM">B.T.M Layout</option>
+        <option value="BVG">Basavanagudi</option>
+        <option value="JAY">Jayanagar</option>
+        <option value="RRN">Rajarajeshwari Nagar</option>
+        <option value="VIJ">Vijaynagar</option>
+        </select><br><br>
+
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required onkeyup="checkPasswordStrength(); checkPasswordMatch();"><br>
+        <span id="password-strength"></span><br><br>
+        
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required onkeyup="checkPasswordMatch();"><br>
+        <span id="password-match"></span><br><br>
+    
+        <label for="voterID">Voter ID:</label>
+        <h2 id="voterID1" name="voterID1"></h2><br>
+        <input type="hidden" id="voterID" name="voterID" readonly>
+        
+        <button type="button" id="generateButton" onclick="generateVoterID()">Generate Voter ID</button><br><br>
+        
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

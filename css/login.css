@@ -1,0 +1,60 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('/dbProject/images/2.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+h2 {
+    color: #333;
+    font-size: 60px; 
+    text-align: center;
+}
+
+form {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(0, 213, 255, 0.9); /* Use rgba for a semi-transparent effect */
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increased shadow for a subtle effect */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #fff; /* Label text color */
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff; /* Input background color */
+    color: #333; /* Input text color */
+}
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+input[type="submit"]:hover {
+    background-color: #398c3f; /* Darker shade on hover */
+}
